@@ -1,0 +1,96 @@
+"A datetime string with format 'Y-m-d H:i:s', e.g. '2018-01-01 13:00:00'."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format 'Y-m-d', e.g. '2011-05-23'."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    users: [User] @all
+    user(id: ID @eq): User @find
+    log_units: [LogUnit] @all
+    log_unit(id: ID @eq): LogUnit @find
+    components: [Component] @all
+    component(id:ID @eq): Component @find
+}
+
+type Mutation {
+
+    #User
+    createUser(
+        name: String @rules(apply: ["required"])
+        email: String @rules(apply: ["required", "email", "unique:users,email"])
+    ): User @create
+    updateUser(
+        id: ID @rules(apply: ["required"])
+        name: String
+        email: String @rules(apply: ["email"])
+    ): User @update
+    deleteUser(
+        id: ID @rules(apply: ["required"])
+    ): User @delete
+
+    #Unit
+    createUnit(
+        name:String @rules(apply:["required"])
+    ): Unit @create
+    updateUnit(
+        id:ID @rules(apply:["required"])
+        name:String
+    ):Unit @update
+    deleteUnit(
+        id:ID! @rules(apply:["required"])
+    ):Unit @delete
+    
+    # LogUnit
+    createLogUnit(
+        name: String @rules(apply:["required"])
+    ): LogUnit @create
+    updateLogUnit(
+        id:ID @rules(apply:["required"])
+        name:String
+    ): LogUnit @update
+    deleteLogUnit(
+        id:ID! @rules(apply:["required"])
+    ): LogUnit @delete
+
+    # Component
+    createComponent(
+        name:String @rules(apply:["required"])
+        log_unit_id:Int!
+    ): Component @create
+    updateComponent(
+        id:ID @rules(apply:["required"])
+        log_unit_id:Int
+        name:String
+    ): Component @update
+    deleteComponent(
+        id:ID! @rules(apply:["required"])
+    ): Component @delete
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Unit {
+    id: ID!
+    name: String!
+}
+
+type LogUnit {
+    id: ID!
+    name: String!
+    components: [Component] @hasMany
+}
+
+type Component {
+    id: ID!
+    name: String!
+    log_unit: LogUnit @belongsTo
+}
+
+
