@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\LogUnit::class, function (Faker $faker) {
+$factory->define(App\Logunit::class, function (Faker $faker) {
     return [
         //
         // 'name'=>

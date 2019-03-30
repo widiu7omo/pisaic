@@ -3,14 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\LogUnit;
+use App\Logunit;
 
 class Component extends Model
 {
     //
     protected $guarded = [];
 
-    public function log_unit(){
-        return $this->belongsTo(LogUnit::class);
+    public function logunit(){
+        return $this->belongsTo(Logunit::class);
+    }
+    public function subcomponents(){
+        return $this->hasMany(Subcomponent::class);
+    }
+    public function inputcomponents(){
+        return $this->hasMany(InputComponent::class);
     }
 }

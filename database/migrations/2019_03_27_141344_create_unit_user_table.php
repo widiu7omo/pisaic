@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComponentsTable extends Migration
+class CreateUnitUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('components', function (Blueprint $table) {
+        //this is a pivot table
+        Schema::create('unit_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('logunit_id')->unsigned();
-            $table->timestamps();
+            $table->integer('user_id')->unsigned();
+            $table->integer('unit_id')->unsigned();
+            // $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('components');
+        Schema::dropIfExists('unit_user');
     }
 }

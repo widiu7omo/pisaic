@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserUnitTable extends Migration
+class CreateInputLogunitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateUserUnitTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_unit', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_user')->unsigned();
-            $table->integer('id_unit')->unsigned();
-            $table->timestamps();
-        });
+        // Schema::create('input_logunits', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -28,6 +26,6 @@ class CreateUserUnitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_unit');
+        Schema::dropIfExists('input_logunits');
     }
 }

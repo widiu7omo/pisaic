@@ -7,31 +7,45 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     users: [User] @all
     user(id: ID @eq): User @find
-    log_units: [LogUnit] @all
-    log_unit(id: ID @eq): LogUnit @find
+    units: [Unit] @all
+    unit(id: ID @eq): Unit @find
+    logunits: [Logunit] @all
+    logunit(id: ID @eq): Logunit @find
     components: [Component] @all
-    component(id:ID @eq): Component @find
+    component(id: ID @eq): Component @find
+    subcomponents: [Subcomponent] @all
+    subcomponent(id: ID @eq): Subcomponent @find
+    inputcomponents: [InputComponent] @all
+    inputComponent(id: ID @eq): InputComponent @find
+    inputsubcomponents: [InputSubcomponent] @all
+    inputsubcomponent(id: ID @eq): InputSubcomponent @find
+    inspectcameras: [InspectCamera] @all
+    InspectCamera(id: ID @eq): InspectCamera @find
 }
 
 type Mutation {
 
     #User
     createUser(
-        name: String @rules(apply: ["required"])
+        name: String @rules(apply: ["required","min:4"])
         email: String @rules(apply: ["required", "email", "unique:users,email"])
+        password:String! @rules(apply: ["min:4"]) @bcrypt
+        username:String! @rules(apply:["required","min:4"])
     ): User @create
     updateUser(
         id: ID @rules(apply: ["required"])
         name: String
         email: String @rules(apply: ["email"])
+        username: String @rules(apply:["min:4"])
     ): User @update
     deleteUser(
-        id: ID @rules(apply: ["required"])
+        id: ID! @rules(apply: ["required"])
     ): User @delete
 
     #Unit
     createUnit(
         name:String @rules(apply:["required"])
+
     ): Unit @create
     updateUnit(
         id:ID @rules(apply:["required"])
@@ -40,27 +54,37 @@ type Mutation {
     deleteUnit(
         id:ID! @rules(apply:["required"])
     ):Unit @delete
-    
-    # LogUnit
-    createLogUnit(
+
+    # PIVOT MUTATION
+    # Logunit Unit Connection
+    createLogUnitConnection(
+        unit_id: Int! @rules(apply:["required"])
+        logunit_id:Int! @rules(apply:["required"])
+    ):LogunitUnit @create
+    # createUnitUserConnection(
+
+    # ):
+
+    # Logunit
+    createLogunit(
         name: String @rules(apply:["required"])
-    ): LogUnit @create
-    updateLogUnit(
+    ): Logunit @create
+    updateLogunit(
         id:ID @rules(apply:["required"])
         name:String
-    ): LogUnit @update
-    deleteLogUnit(
+    ): Logunit @update
+    deleteLogunit(
         id:ID! @rules(apply:["required"])
-    ): LogUnit @delete
+    ): Logunit @delete
 
     # Component
     createComponent(
         name:String @rules(apply:["required"])
-        log_unit_id:Int!
+        logunit_id:Int!
     ): Component @create
     updateComponent(
         id:ID @rules(apply:["required"])
-        log_unit_id:Int
+        logunit_id:Int
         name:String
     ): Component @update
     deleteComponent(
@@ -71,26 +95,74 @@ type Mutation {
 type User {
     id: ID!
     name: String!
+    username:String
+    password:String
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
+    units:[Unit!]! @belongsToMany
 }
 
 type Unit {
     id: ID!
     name: String!
+    users: [User!]! @belongsToMany
+    logunits:[Logunit!]! @belongsToMany
+    inspectcameras: [InspectCamera] @hasMany
+}
+# Bridge
+type LogunitUnit {
+    id: ID
+    logunit_id: Int
+    unit_id: Int
+    # inspectcameras: [InspectCamera] @hasMany
 }
 
-type LogUnit {
+type Logunit {
     id: ID!
     name: String!
     components: [Component] @hasMany
+    units:[Unit!]! @belongsToMany
+    inspectcameras:[InspectCamera] @hasMany
+
+}
+
+type InspectCamera {
+    id: ID!
+    pemeriksa: String!
+    tanggal_pemeriksaan: String
+    nama_komponen: String
+    foto: String
+    ttd_pemeriksa: String
+    logunit: Logunit @belongsTo
+    unit: Unit @belongsTo
 }
 
 type Component {
     id: ID!
     name: String!
-    log_unit: LogUnit @belongsTo
+    logunit: Logunit @belongsTo
+    subcomponents: [Subcomponent] @hasMany
+    inputcomponents: [InputComponent] @hasMany
 }
 
+type InputComponent {
+    id: ID!
+    name: String!
+    value: String!
+    component: Component @belongsTo
+}
 
+type Subcomponent {
+    id: ID!
+    name: String!
+    component: Component @belongsTo
+    inputsubcomponent: InputSubcomponent @hasMany
+}
+
+type InputSubcomponent {
+    id: ID!
+    name: String!
+    value: String
+    subcomponent: Subcomponent @belongsTo
+}

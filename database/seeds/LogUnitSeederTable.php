@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\LogUnit;
+use App\Logunit;
 class LogUnitSeederTable extends Seeder
 {
     /**
@@ -12,22 +12,22 @@ class LogUnitSeederTable extends Seeder
     public function run()
     {
         //
-        LogUnit::create([
+        Logunit::create([
             'name'=>'Periodict Inspection Sheet'
         ]);
-        LogUnit::create([
+        Logunit::create([
             'name'=>'Inspection Camera'
         ]);
-        LogUnit::create([
+        Logunit::create([
             'name'=>'Problem Log'
         ]);
-        LogUnit::create([
+        Logunit::create([
             'name'=>'Backlog Entry Sheet'
         ]);
-        LogUnit::create([
+        Logunit::create([
             'name'=>'Backlog Monitoring Sheet'
         ]);
-        LogUnit::create([
+        Logunit::create([
             'name'=>'Cylinder Daily Check Sheet'
         ]);
     }
