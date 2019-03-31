@@ -16,7 +16,7 @@ class CreateSubcomponentsTable extends Migration
         Schema::create('subcomponents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('component_id');
+            $table->integer('component_id')->unsigned();
             $table->timestamps();
         });
     }

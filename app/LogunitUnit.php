@@ -11,8 +11,8 @@ class LogunitUnit extends Model
     protected $fillable = ['logunit_id','unit_id'];
     public $timestamps = false;
 
-    // public function inspectcameras(){
-    //     return $this->hasMany(InspectCamera::class);
-    // }
+    public function inspectcameras(){
+        return $this->hasMany(InspectCamera::class,'logunit_id');
+    }
 
 }

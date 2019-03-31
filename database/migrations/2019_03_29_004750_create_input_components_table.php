@@ -13,13 +13,13 @@ class CreateInputComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('input_components', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('value');
-            $table->integer('component_id');
-            $table->timestamps();
-        });
+        // Schema::create('input_components', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->string('value');
+        //     $table->integer('component_id')->unsigned();
+        //     $table->timestamps();
+        // });
     }
 
     /**

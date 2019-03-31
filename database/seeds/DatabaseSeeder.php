@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\LogUnit;
+use App\InspectCamera;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,9 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserTableSeeder::class);
-        // $this->call(LogTableSeeder::class);
-        $this->call(LogUnitSeederTable::class);
+        $this->call(UnitTableSeeder::class);
+        // $this->call(LogUnitSeederTable::class);
+        $this->call(MasterlogSeedTable::class);
         $this->call(ComponentTableSeeder::class);
-        // $this->call(InputComponentSeederTable::class);
+        // $this->call(SubcomponentSeederTable::class);
+        $this->call(InspectCameraTableSeeder::class);
+        $this->call(WorkorderTableSeeder::class);
+        $this->call(DataunitTableSeeder::class);
     }
 }

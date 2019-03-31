@@ -7,20 +7,22 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     users: [User] @all
     user(id: ID @eq): User @find
+
     units: [Unit] @all
     unit(id: ID @eq): Unit @find
+
     logunits: [Logunit] @all
     logunit(id: ID @eq): Logunit @find
+
     components: [Component] @all
     component(id: ID @eq): Component @find
+
     subcomponents: [Subcomponent] @all
     subcomponent(id: ID @eq): Subcomponent @find
-    inputcomponents: [InputComponent] @all
-    inputComponent(id: ID @eq): InputComponent @find
-    inputsubcomponents: [InputSubcomponent] @all
-    inputsubcomponent(id: ID @eq): InputSubcomponent @find
+
+    #INPUT DATA
     inspectcameras: [InspectCamera] @all
-    InspectCamera(id: ID @eq): InspectCamera @find
+    inspectcamera(id: ID @eq): InspectCamera @find
 }
 
 type Mutation {
@@ -90,6 +92,31 @@ type Mutation {
     deleteComponent(
         id:ID! @rules(apply:["required"])
     ): Component @delete
+
+    #Inspect Camera
+    createInspectCamera(
+        pemeriksa: String! @rules(apply:["required"])
+        tanggal_pemeriksaan: String! @rules (apply:["required"])
+        nama_komponen: String! @rules(apply:["required"])
+        foto:String
+        ttd_pemeriksa:String
+        logunit_id:Int! @rules(apply:["required"])
+        unit_id:Int! @rules(apply:["required"])
+    ): InspectCamera @create
+    updateInpectCamera(
+        id:ID! @rules(apply:["required"])
+        pemeriksa: String! @rules(apply:["required"])
+        tanggal_pemeriksaan: String! @rules (apply:["required"])
+        nama_komponen: String! @rules(apply:["required"])
+        foto:String
+        ttd_pemeriksa:String
+        logunit_id:Int! @rules(apply:["required"])
+        unit_id:Int! @rules(apply:["required"])
+    ): InspectCamera @update
+    deleteInspectCamera(
+        id:ID! @rules(apply:["required"])
+    ): InspectCamera @delete
+
 }
 
 type User {
@@ -109,13 +136,14 @@ type Unit {
     users: [User!]! @belongsToMany
     logunits:[Logunit!]! @belongsToMany
     inspectcameras: [InspectCamera] @hasMany
+    workorders:[Workorder] @hasMany
 }
 # Bridge
 type LogunitUnit {
     id: ID
     logunit_id: Int
     unit_id: Int
-    # inspectcameras: [InspectCamera] @hasMany
+    inspectcameras: [InspectCamera] @hasMany
 }
 
 type Logunit {
@@ -123,8 +151,9 @@ type Logunit {
     name: String!
     components: [Component] @hasMany
     units:[Unit!]! @belongsToMany
+    workorders: [Workorder] @hasMany
+    dataunits: [Dataunit] @hasMany
     inspectcameras:[InspectCamera] @hasMany
-
 }
 
 type InspectCamera {
@@ -143,26 +172,64 @@ type Component {
     name: String!
     logunit: Logunit @belongsTo
     subcomponents: [Subcomponent] @hasMany
-    inputcomponents: [InputComponent] @hasMany
 }
 
-type InputComponent {
+type Workorder {
     id: ID!
-    name: String!
-    value: String!
+    date: String
+    wo_no: String
+    revisi_sr:String
+    po_cus:String
+    product_name:String
+    model_unit:String
+    model_engine:String
+    estimasi_job:String
+    catatan:String
+    ttd_sdh:String
+    sdh_name:String
+    logunit_id:Int
+    unit_id:Int
+    component_id:Int
+    logunit: Logunit @belongsTo
+    unit: Unit @belongsTo
     component: Component @belongsTo
 }
 
+type Dataunit {
+    id:ID!
+    date:String
+    location:String
+    sn_unit:String
+    smr_uni:String
+    smr_travel:String
+    kwh_meter:String
+    inspect_start:String
+    inspect_end:String
+    operator_name:String
+    tanggal_teknisi_tiba:String
+    tanggal_teknisi_meninggalkan:String
+    tanggal_teknisi_selesai:String
+    hasil_pekerjaan_teknisi_selesai:String
+    hasil_pekerjaan_teknisi_memuaskan:String
+    penilaian_teknisi:String
+    ttd_operator:String
+    mekanik_name:String
+    ttd_mekanik:String
+    mekanik_leader_name:String
+    ttd_mekanik_leader_name:String
+    supervisor_name:String
+    catatan_supervisor:String
+    ttd_supervisor:String
+    logunit_id:String
+    unit_id:String
+    component_id:String
+    logunit: Logunit @belongsTo
+    unit: Unit @belongsTo
+    component: Component @belongsTo
+}
 type Subcomponent {
     id: ID!
     name: String!
     component: Component @belongsTo
-    inputsubcomponent: InputSubcomponent @hasMany
 }
 
-type InputSubcomponent {
-    id: ID!
-    name: String!
-    value: String
-    subcomponent: Subcomponent @belongsTo
-}

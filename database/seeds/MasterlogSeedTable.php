@@ -1,8 +1,8 @@
 <?php
-use App\Log;
-use Illuminate\Database\Seeder;
 
-class LogTableSeeder extends Seeder
+use Illuminate\Database\Seeder;
+use App\Masterlog;
+class MasterlogSeedTable extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,22 +12,22 @@ class LogTableSeeder extends Seeder
     public function run()
     {
         //
-        Log::create([
+        Masterlog::create([
             'name'=>'Periodict Inspection Sheet'
         ]);
-        Log::create([
+        Masterlog::create([
             'name'=>'Inspection Camera'
         ]);
-        Log::create([
+        Masterlog::create([
             'name'=>'Problem Log'
         ]);
-        Log::create([
+        Masterlog::create([
             'name'=>'Backlog Entry Sheet'
         ]);
-        Log::create([
+        Masterlog::create([
             'name'=>'Backlog Monitoring Sheet'
         ]);
-        Log::create([
+        Masterlog::create([
             'name'=>'Cylinder Daily Check Sheet'
         ]);
     }

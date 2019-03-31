@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\InspectCamera;
 
-class InputSubcomponentSeederTable extends Seeder
+class InspectCameraTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,5 +13,6 @@ class InputSubcomponentSeederTable extends Seeder
     public function run()
     {
         //
+        factory(InspectCamera::class,20)->create();
     }
 }

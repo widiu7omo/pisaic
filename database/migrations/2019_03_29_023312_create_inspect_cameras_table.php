@@ -21,7 +21,7 @@ class CreateInspectCamerasTable extends Migration
             $table->string('foto')->nullable();
             $table->string('ttd_pemeriksa')->nullable();
             $table->integer('logunit_id')->unsigned();
-            $table->integer('unit_id');
+            $table->integer('unit_id')->unsigned();
             // $table->timestamps();
         });
     }

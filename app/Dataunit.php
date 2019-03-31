@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-class InspectCamera extends Model
+
+class Dataunit extends Model
 {
     //
     protected $guarded = [];
@@ -14,5 +15,8 @@ class InspectCamera extends Model
     }
     public function unit(){
         return $this->belongsTo(Unit::class);
+    }
+    public function component(){
+        return $this->belongsTo(Component::class);
     }
 }
