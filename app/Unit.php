@@ -16,11 +16,12 @@ class Unit extends Model{
     public function logunits(){
         return $this->belongsToMany(Logunit::class)->withPivot('unit_id');
     }
+    //======================================NEW METHOD
+    public function pisheets(){
+        return $this->hasMany(Pisheet::class);
+    }
     public function inspectcameras(){
         return $this->hasMany(InspectCamera::class,'unit_id');
-    }
-    public function pisheet(){
-        return $this->belongsTo(Pisheet::class);
     }
     // public function workorders(){
     //     return $this->hasMany(Workorder::class);

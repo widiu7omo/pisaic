@@ -11,15 +11,8 @@ type Query {
     units: [Unit] @all
     unit(id: ID @eq): Unit @find
 
-    logunits: [Logunit] @all
-    logunit(id: ID @eq): Logunit @find
-
-    components: [Component] @all
-    component(id: ID @eq): Component @find
-
-    subcomponents: [Subcomponent] @all
-    subcomponent(id: ID @eq): Subcomponent @find
-
+    workorders: [Workorder] @all
+    workorder(id: ID @eq): Workorder @find
     #INPUT DATA
     inspectcameras: [InspectCamera] @all
     inspectcamera(id: ID @eq): InspectCamera @find
@@ -57,42 +50,6 @@ type Mutation {
         id:ID! @rules(apply:["required"])
     ):Unit @delete
 
-    # PIVOT MUTATION
-    # Logunit Unit Connection
-    createLogUnitConnection(
-        unit_id: Int! @rules(apply:["required"])
-        logunit_id:Int! @rules(apply:["required"])
-    ):LogunitUnit @create
-    # createUnitUserConnection(
-
-    # ):
-
-    # Logunit
-    createLogunit(
-        name: String @rules(apply:["required"])
-    ): Logunit @create
-    updateLogunit(
-        id:ID @rules(apply:["required"])
-        name:String
-    ): Logunit @update
-    deleteLogunit(
-        id:ID! @rules(apply:["required"])
-    ): Logunit @delete
-
-    # Component
-    createComponent(
-        name:String @rules(apply:["required"])
-        logunit_id:Int!
-    ): Component @create
-    updateComponent(
-        id:ID @rules(apply:["required"])
-        logunit_id:Int
-        name:String
-    ): Component @update
-    deleteComponent(
-        id:ID! @rules(apply:["required"])
-    ): Component @delete
-
     #Inspect Camera
     createInspectCamera(
         pemeriksa: String! @rules(apply:["required"])
@@ -117,6 +74,40 @@ type Mutation {
         id:ID! @rules(apply:["required"])
     ): InspectCamera @delete
 
+    #Workorder
+    createWorkorder(
+        date: String
+        wo_no: String @rules(apply:["required"])
+        revisi_sr:String
+        po_cus:String
+        product_name:String @rules(apply:["required"])
+        model_unit:String
+        model_engine:String
+        estimasi_job:String
+        catatan:String
+        ttd_sdh:String
+        sdh_name:String
+        pisheet_id:Int
+    ): Workorder @create
+    updateWorkorder(
+        id:ID! @rules(apply:["required"])
+        date: String
+        wo_no: String
+        revisi_sr:String
+        po_cus:String
+        product_name:String
+        model_unit:String
+        model_engine:String
+        estimasi_job:String
+        catatan:String
+        ttd_sdh:String
+        sdh_name:String
+        pisheet_id:Int
+    ): Workorder @update
+    deleteWorkorder(
+        id:ID! @rules(apply:["required"])
+    ): Workorder @delete
+
 }
 
 type User {
@@ -134,26 +125,25 @@ type Unit {
     id: ID!
     name: String!
     users: [User!]! @belongsToMany
-    logunits:[Logunit!]! @belongsToMany
     inspectcameras: [InspectCamera] @hasMany
-    workorders:[Workorder] @hasMany
-}
-# Bridge
-type LogunitUnit {
-    id: ID
-    logunit_id: Int
-    unit_id: Int
-    inspectcameras: [InspectCamera] @hasMany
+    pisheets: [Pisheet] @hasMany
 }
 
-type Logunit {
+type Masterlog {
+    id:ID!
+    name: String
+}
+
+type Pisheet {
     id: ID!
-    name: String!
-    components: [Component] @hasMany
-    units:[Unit!]! @belongsToMany
-    workorders: [Workorder] @hasMany
-    dataunits: [Dataunit] @hasMany
-    inspectcameras:[InspectCamera] @hasMany
+    unit_id: Int!
+    masterlog_id: Int!
+    unit:Unit @belongsTo
+    masterlogs: [Masterlog] @hasMany
+    workorders:[Workorder] @hasMany
+    dataunits:[Dataunit] @hasMany
+    unit: Unit @belongsTo
+
 }
 
 type InspectCamera {
@@ -163,15 +153,7 @@ type InspectCamera {
     nama_komponen: String
     foto: String
     ttd_pemeriksa: String
-    logunit: Logunit @belongsTo
     unit: Unit @belongsTo
-}
-
-type Component {
-    id: ID!
-    name: String!
-    logunit: Logunit @belongsTo
-    subcomponents: [Subcomponent] @hasMany
 }
 
 type Workorder {
@@ -187,12 +169,8 @@ type Workorder {
     catatan:String
     ttd_sdh:String
     sdh_name:String
-    logunit_id:Int
-    unit_id:Int
-    component_id:Int
-    logunit: Logunit @belongsTo
-    unit: Unit @belongsTo
-    component: Component @belongsTo
+    pisheet_id:Int
+    
 }
 
 type Dataunit {
@@ -220,16 +198,6 @@ type Dataunit {
     supervisor_name:String
     catatan_supervisor:String
     ttd_supervisor:String
-    logunit_id:String
-    unit_id:String
-    component_id:String
-    logunit: Logunit @belongsTo
-    unit: Unit @belongsTo
-    component: Component @belongsTo
-}
-type Subcomponent {
-    id: ID!
-    name: String!
-    component: Component @belongsTo
-}
+    pisheet_id:Int
 
+}

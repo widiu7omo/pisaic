@@ -26,9 +26,9 @@ class CreateWorkordersTable extends Migration
             $table->text('catatan')->nullable();
             $table->string('ttd_sdh')->nullable();
             $table->string('sdh_name')->nullable();
-            $table->integer('logunit_id')->unsigned();
-            $table->integer('unit_id')->unsigned();
-            $table->integer('component_id')->unsigned();
+            $table->integer('pisheet_id')->unsigned();
+            // $table->integer('unit_id')->unsigned();
+            // $table->integer('component_id')->unsigned();
         });
     }
 

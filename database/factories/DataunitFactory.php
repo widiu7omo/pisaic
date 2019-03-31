@@ -23,8 +23,6 @@ $factory->define(App\Dataunit::class, function (Faker $faker) {
         'mekanik_name'=>$faker->name,
         'mekanik_leader_name'=>$faker->name,
         'supervisor_name'=>$faker->name,
-        'logunit_id'=>1,
-        'unit_id'=>1,
-        'component_id'=>2
+        'pisheet_id'=>1,
     ];
 });

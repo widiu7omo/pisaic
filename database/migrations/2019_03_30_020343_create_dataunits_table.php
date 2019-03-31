@@ -38,9 +38,10 @@ class CreateDataunitsTable extends Migration
             $table->string('supervisor_name')->nullable();
             $table->string('catatan_supervisor')->nullable();
             $table->string('ttd_supervisor')->nullable();
-            $table->integer('logunit_id')->unsigned();
-            $table->integer('unit_id')->unsigned();
-            $table->integer('component_id')->unsigned();
+            // $table->integer('logunit_id')->unsigned();
+            // $table->integer('unit_id')->unsigned();
+            // $table->integer('component_id')->unsigned();
+            $table->integer('pisheet_id')->unsigned();
         });
     }
 

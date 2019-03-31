@@ -14,8 +14,6 @@ $factory->define(App\Workorder::class, function (Faker $faker) {
         'model_engine'=>$faker->numerify('SN###'),
         'estimasi_job'=>$faker->randomDigitNotNull,
         'sdh_name'=>$faker->name,
-        'logunit_id'=>1,
-        'unit_id'=>1,
-        'component_id'=>1
+        'pisheet_id'=>1,
     ];
 });

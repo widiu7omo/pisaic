@@ -16,7 +16,8 @@ class CreatePisheetsTable extends Migration
         Schema::create('pisheets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('unit_id')->unsigned();
-            $table->timestamps();
+            $table->integer('masterlog_id')->unsigned();
+            // $table->timestamps();
         });
     }
 
