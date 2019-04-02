@@ -16,7 +16,7 @@ class CreateZone1sTable extends Migration
         Schema::create('zone1s', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pisheet_id')->unsigned();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

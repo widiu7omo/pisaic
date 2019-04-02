@@ -23,6 +23,15 @@ class Unit extends Model{
     public function inspectcameras(){
         return $this->hasMany(InspectCamera::class,'unit_id');
     }
+    public function problemlogs(){
+        return $this->hasMany(Problemlog::class);
+    }
+    public function backlogentrysheets(){
+        return $this->hasMany(Backlogentrysheet::class);
+    }
+    public function cylinderchecksheets(){
+        return $this->hasMany(Cylinderdailychecksheet::class);
+    }
     // public function workorders(){
     //     return $this->hasMany(Workorder::class);
     // }

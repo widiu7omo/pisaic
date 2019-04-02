@@ -22,7 +22,7 @@ class CreateInspectCamerasTable extends Migration
             $table->string('ttd_pemeriksa')->nullable();
             $table->integer('unit_id')->unsigned();
             $table->integer('masterlog_id')->unsigned();
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 

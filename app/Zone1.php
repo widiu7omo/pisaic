@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Zone1 extends Model
 {
     //
+    protected $guarded = [];
+    public $timestamps = false;
+    
     public function pisheet(){
         return $this->belongsTo(Pisheet::class);
     }

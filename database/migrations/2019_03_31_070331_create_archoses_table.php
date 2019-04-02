@@ -19,7 +19,6 @@ class CreateArchosesTable extends Migration
             $table->text('hose_b')->nullable();
             $table->text('hose_c')->nullable();
             $table->text('hose_d')->nullable();
-            $table->text('hose_a')->nullable();
             $table->text('hose_e')->nullable();
             $table->text('hose_f')->nullable();
             $table->text('hose_g')->nullable();

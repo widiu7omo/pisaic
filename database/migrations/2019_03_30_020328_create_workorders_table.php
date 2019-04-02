@@ -29,6 +29,8 @@ class CreateWorkordersTable extends Migration
             $table->integer('pisheet_id')->unsigned();
             // $table->integer('unit_id')->unsigned();
             // $table->integer('component_id')->unsigned();
+            $table->timestamps();
+
         });
     }
 

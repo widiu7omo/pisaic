@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Backlogentrysheet extends Model
+class Cylinderdailychecksheet extends Model
 {
     //
     protected $guarded = [];
@@ -15,5 +15,11 @@ class Backlogentrysheet extends Model
     }
     public function masterlog(){
         return $this->belongsTo(Masterlog::class);
+    }
+    public function dataunitdailychecks(){
+        return $this->hasMany(Dataunitdailycheck::class);
+    }
+    public function sheetdailychecks(){
+        return $this->hasMany(Sheetdailycheck::class);
     }
 }

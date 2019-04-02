@@ -35,7 +35,7 @@ class CreateBacklogentrysheetsTable extends Migration
             $table->string('backlog_date')->nullable();
             $table->integer('unit_id')->unsigned();
             $table->integer('masterlog_id')->unsigned();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

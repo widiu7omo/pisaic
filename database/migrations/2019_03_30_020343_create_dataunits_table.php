@@ -42,6 +42,7 @@ class CreateDataunitsTable extends Migration
             // $table->integer('unit_id')->unsigned();
             // $table->integer('component_id')->unsigned();
             $table->integer('pisheet_id')->unsigned();
+            $table->timestamps();
         });
     }
 
