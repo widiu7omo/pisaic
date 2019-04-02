@@ -1,0 +1,159 @@
+extend type Mutation {
+    createZone1(
+        pisheet_id:Int! @rules(apply:["required"])
+    ) : Zone1 @create
+
+    createBoomGroups(
+        boom:String
+        boom_cylinder_lh:String
+        cylinder_protector_lhb:String
+        boom_cylinder_rh:String
+        cylinder_protector_rhb:String
+        pin_bushing_rhlhcb:String
+        pin_bushing_rhlhbts:String
+        hose_high_pressure_pctbc:String
+        hose_high_pressure_pctsc:String
+        hose_high_pressure_pctcc:String
+        zone1_id:Int! @rules(apply : ["required"])
+    ) : Boomgroup @create
+
+    createStickGroups(
+        stick: String
+        stick_cylinder_lh: String
+        pin_bushing_rhlhstb: String
+        cylinder_protector_lhs: String
+        stick_cylinder_rh: String
+        cylinder_protector_rhs: String
+        pin_bushing_rhlhcs: String
+        injector_grease_ls: String
+        cls_pressure_s_w: String
+        hose_high_pressure_pctbc: String
+        zone1_id:Int! @rules (apply:["required"])
+    ) : Stickgroup @create
+}
+extend type Query {
+    zone1s: [Zone1] @all
+    zone1(id: ID @eq): Zone1 @find
+    bucketgroups: [Bucketgroup] @all
+    bucketgroup(id: ID @eq): Bucketgroup @find
+    boomgroups:[Boomgroup] @all
+    boomgroup(id: ID @eq): Boomgroup @find
+    tracklhgroups: [Tracklhgroup] @all
+    tracklhgroup(id: ID @eq): Tracklhgroup @find
+    trackrhgroups: [Trackrhgroup] @all
+    trackrhgroup(id: ID @eq): Trackrhgroup @find
+    centerframes: [Centerframe] @all
+    centerframe(id: ID @eq): Centerframe @find
+    ladders: [Ladder] @all
+    ladder(id: ID @eq): Ladder @find
+}
+type Zone1 {
+    id: ID!
+    bucketgroups: [Bucketgroup] @hasMany
+    stickgroups: [Stickgroup] @hasMany
+    boomgroups: [Boomgroup] @hasMany
+    tracklhgroups: [Tracklhgroup] @hasMany
+    trackrhgroups: [Trackrhgroup] @hasMany
+    centerframes: [Centerframe] @hasMany
+    ladders: [Ladder] @hasMany
+    pisheet: Pisheet @belongsTo
+}
+type Bucketgroup {
+    id: ID!
+    teeth_bucket: String
+    lp_teeth_bucket: String
+    shroud: String
+    bucket_hff: String
+    clamp_cylinder_lh: String
+    clamp_cylinder_rh: String
+    pin_bushing_lhrhcc: String
+    bucket_cylinder_lh: String
+    bucket_cylinder_rh: String
+    pin_bushing_lhrhff: String
+    pin_bushing_lhrhcb: String
+    injector_grease_ll: String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}
+type Stickgroup {
+    id: ID!
+    stick: String
+    stick_cylinder_lh: String
+    pin_bushing_rhlhstb: String
+    cylinder_protector_lhs: String
+    stick_cylinder_rh: String
+    cylinder_protector_rhs: String
+    pin_bushing_rhlhcs: String
+    injector_grease_ls: String
+    cls_pressure_s_w: String
+    hose_high_pressure_pctbc: String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}
+type Boomgroup {
+    id: ID!
+    boom: String
+    boom_cylinder_lh: String
+    cylinder_protector_lhb: String
+    boom_cylinder_rh: String
+    cylinder_protector_rhb: String
+    pin_bushing_rhlhcb: String
+    pin_bushing_rhlhbts: String
+    hose_high_pressure_pctbc: String
+    hose_high_pressure_pctsc: String
+    hose_high_pressure_pctcc: String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}
+type Tracklhgroup {
+    id: ID!
+    idler:String
+    adjusting_track_c:String
+    track_roller:String
+    carrier_roller:String
+    trackpad:String
+    pin_trackpad:String
+    sproket:String
+    track_tension_c:String
+    lh_travel_gbmh:String
+    level_thick_osuclh:String
+    level_thick_osucrh:String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}
+type Trackrhgroup {
+    id: ID!
+    idler:String
+    adjusting_track_c:String
+    track_roller:String
+    carrier_roller:String
+    trackpad:String
+    pin_trackpad:String
+    sproket:String
+    track_tension_c:String
+    lh_travel_gbmh:String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}
+type Centerframe {
+    id: ID!
+    swing_circle_b:String
+    mounting_bolt_cbrhlh:String
+    teeth_swing_c:String
+    hv_cable_connector:String
+    cable_duct:String
+    cable_singer:String
+    swivel_joint:String
+    hv_cable_pilot_c:String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}
+type Ladder {
+    id: ID!
+    cylinder:String
+    mounting:String
+    handrail_la:String
+    electric_part:String
+    zone1_id:Int! @rules (apply:["required"])
+    zone1: Zone1 @belongsTo
+}

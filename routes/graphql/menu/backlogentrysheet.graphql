@@ -1,0 +1,30 @@
+extend type Query {
+    backlogentrysheets:[Backlogentrysheet] @all
+    backlogentrysheet(id:ID @eq):Backlogentrysheet @find
+}
+# extend type Mutation {
+
+# }
+
+type Backlogentrysheet {
+    id: ID!
+    daytime:String
+    branch:String
+    tipe_unit:String
+    sumber_temuan:String
+    problem:String
+    hm_unit:String
+    estimasi_job:String
+    resp:String
+    work_zone:String
+    suggest_action:String
+    priority:String
+    part_number:String
+    part_desc:String
+    figure:String
+    index:String
+    quantity:String
+    mark:String
+    backlog_date:String
+    unit: Unit @belongsTo
+}

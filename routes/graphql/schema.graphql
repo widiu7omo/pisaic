@@ -1,9 +1,10 @@
+#import menu/*.graphql
+#import submenu/*.graphql
 "A datetime string with format 'Y-m-d H:i:s', e.g. '2018-01-01 13:00:00'."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 "A date string with format 'Y-m-d', e.g. '2011-05-23'."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
-
 type Query {
     users: [User] @all
     user(id: ID @eq): User @find
@@ -11,15 +12,9 @@ type Query {
     units: [Unit] @all
     unit(id: ID @eq): Unit @find
 
-    workorders: [Workorder] @all
-    workorder(id: ID @eq): Workorder @find
-    #INPUT DATA
-    inspectcameras: [InspectCamera] @all
-    inspectcamera(id: ID @eq): InspectCamera @find
 }
 
 type Mutation {
-
     #User
     createUser(
         name: String @rules(apply: ["required","min:4"])
@@ -49,64 +44,6 @@ type Mutation {
     deleteUnit(
         id:ID! @rules(apply:["required"])
     ):Unit @delete
-
-    #Inspect Camera
-    createInspectCamera(
-        pemeriksa: String! @rules(apply:["required"])
-        tanggal_pemeriksaan: String! @rules (apply:["required"])
-        nama_komponen: String! @rules(apply:["required"])
-        foto:String
-        ttd_pemeriksa:String
-        logunit_id:Int! @rules(apply:["required"])
-        unit_id:Int! @rules(apply:["required"])
-    ): InspectCamera @create
-    updateInpectCamera(
-        id:ID! @rules(apply:["required"])
-        pemeriksa: String! @rules(apply:["required"])
-        tanggal_pemeriksaan: String! @rules (apply:["required"])
-        nama_komponen: String! @rules(apply:["required"])
-        foto:String
-        ttd_pemeriksa:String
-        logunit_id:Int! @rules(apply:["required"])
-        unit_id:Int! @rules(apply:["required"])
-    ): InspectCamera @update
-    deleteInspectCamera(
-        id:ID! @rules(apply:["required"])
-    ): InspectCamera @delete
-
-    #Workorder
-    createWorkorder(
-        date: String
-        wo_no: String @rules(apply:["required"])
-        revisi_sr:String
-        po_cus:String
-        product_name:String @rules(apply:["required"])
-        model_unit:String
-        model_engine:String
-        estimasi_job:String
-        catatan:String
-        ttd_sdh:String
-        sdh_name:String
-        pisheet_id:Int
-    ): Workorder @create
-    updateWorkorder(
-        id:ID! @rules(apply:["required"])
-        date: String
-        wo_no: String
-        revisi_sr:String
-        po_cus:String
-        product_name:String
-        model_unit:String
-        model_engine:String
-        estimasi_job:String
-        catatan:String
-        ttd_sdh:String
-        sdh_name:String
-        pisheet_id:Int
-    ): Workorder @update
-    deleteWorkorder(
-        id:ID! @rules(apply:["required"])
-    ): Workorder @delete
 
 }
 
@@ -143,61 +80,4 @@ type Pisheet {
     workorders:[Workorder] @hasMany
     dataunits:[Dataunit] @hasMany
     unit: Unit @belongsTo
-
-}
-
-type InspectCamera {
-    id: ID!
-    pemeriksa: String!
-    tanggal_pemeriksaan: String
-    nama_komponen: String
-    foto: String
-    ttd_pemeriksa: String
-    unit: Unit @belongsTo
-}
-
-type Workorder {
-    id: ID!
-    date: String
-    wo_no: String
-    revisi_sr:String
-    po_cus:String
-    product_name:String
-    model_unit:String
-    model_engine:String
-    estimasi_job:String
-    catatan:String
-    ttd_sdh:String
-    sdh_name:String
-    pisheet_id:Int
-    
-}
-
-type Dataunit {
-    id:ID!
-    date:String
-    location:String
-    sn_unit:String
-    smr_uni:String
-    smr_travel:String
-    kwh_meter:String
-    inspect_start:String
-    inspect_end:String
-    operator_name:String
-    tanggal_teknisi_tiba:String
-    tanggal_teknisi_meninggalkan:String
-    tanggal_teknisi_selesai:String
-    hasil_pekerjaan_teknisi_selesai:String
-    hasil_pekerjaan_teknisi_memuaskan:String
-    penilaian_teknisi:String
-    ttd_operator:String
-    mekanik_name:String
-    ttd_mekanik:String
-    mekanik_leader_name:String
-    ttd_mekanik_leader_name:String
-    supervisor_name:String
-    catatan_supervisor:String
-    ttd_supervisor:String
-    pisheet_id:Int
-
 }

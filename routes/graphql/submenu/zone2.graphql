@@ -1,0 +1,130 @@
+extend type Mutation {
+    createZone2(
+        pisheet_id:Int! @rules(apply:["required"])
+    ):Zone2 @create
+
+}
+extend type Query {
+    zone2s:[Zone2] @all
+    zone2(id:ID @eq): Zone2 @find
+    maindrivemotors:[Maindrivemotor] @all
+    maindrivemotor(id:ID @eq): Maindrivemotor @find
+    pdgpumps:[Pdgpump] @all
+    pdgpump(id:ID @eq):Pdgpump @find
+    swings:[Swing] @all
+    swing(id:ID @eq):Swing @find
+    oilcenters:[Oilcenter] @all
+    oilcenter(id:ID @eq):Oilcenter @find
+    clss:[Cls] @all
+    cls(id:ID @eq):Cls @find
+    slss:[Sls] @all
+    sls(id:ID @eq):Sls @find
+    hydraulics:[Hydraulic] @all
+    hydraulic(id:ID @eq):Hydraulic @find
+    electrics:[Electric] @all
+    electric(id:ID @eq):Electric @find
+    additionalfluids:[Additionalfluid] @all
+    additionalfluid(id:ID @eq):Additionalfluid @find
+}
+
+type Zone2 {
+    id: ID!
+    maindrivemotors:[Maindrivemotor] @hasMany
+    pdgpumps:[Pdgpump] @hasMany
+    swings:[Swing] @hasMany
+    oilcenters:[Oilcenter] @hasMany
+    clss:[Cls] @hasMany
+    slss:[Sls] @hasMany
+    hydraulics:[Hydraulic] @hasMany
+    electrics:[Electric] @hasMany
+    additionalfluids:[Additionalfluid] @hasMany
+    pisheet: Pisheet @belongsTo
+}
+type Maindrivemotor {
+    id: ID!
+    abnormal_noise_do: String
+    drive_motor_smrhlh: String
+    connection_box: String
+    capacitor: String
+    fan_air_ish: String
+    zone2: Zone2 @belongsTo
+}
+type Pdgpump {
+    id: ID!
+    flexible_coupling:String
+    pto:String
+    pto_relief_valve:String
+    accumulator_pilot_p:String
+    all_hoe_related:String
+    electric_equipment:String
+    pilot_control_pump:String
+    pto_lubrication_pump:String
+    pump_fan_oc:String
+    high_pressure_f:String
+    pump_n1:String
+    pump_n2:String
+    pump_n3:String
+    shutoff_valve_ht:String
+    zone2: Zone2 @belongsTo
+}
+type Swing {
+    id: ID!
+    swing_motor:String
+    gear_box:String
+    swing_motor_adapter:String
+    hose_part_related:String
+    increasing_valve_sb:String
+    zone2: Zone2 @belongsTo
+}
+type Oilcenter {
+    id: ID!
+    oil_cooler_u:String
+    fan_motor_u:String
+    hosses_u:String
+    oil_cooler_l:String
+    fan_motor_l:String
+    hosses_l:String
+    pulsation_damper:String
+    zone2: Zone2 @belongsTo
+}
+type Cls {
+    id: ID!
+    pump_a_gauge:String
+    valve:String
+    line:String
+    grease_cls_level:String
+    electric_related_part:String
+    zone2: Zone2 @belongsTo
+}
+type Sls {
+    id: ID!
+    pump_a_gauge:String
+    valve:String
+    line:String
+    grease_sls_level:String
+    electric_related_part:String
+    zone2: Zone2 @belongsTo
+}
+type Hydraulic {
+    id: ID!
+    hydraulic_tank_oil:String
+    collector_pipe:String
+    hose:String
+    control_block_n1:String
+    control_block_n2:String
+    control_block_n3:String
+    sensor:String
+    zone2: Zone2 @belongsTo
+}
+type Electric {
+    id: ID!
+    batteries:String
+    batteries_switch:String
+    zone2: Zone2 @belongsTo
+}
+type Additionalfluid {
+    id: ID!
+    jenis_fluida:String
+    quantity:String
+    zone2: Zone2 @belongsTo
+}

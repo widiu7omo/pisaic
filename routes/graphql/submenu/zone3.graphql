@@ -1,0 +1,129 @@
+extend type Query {
+    zone3s:[Zone3] @all
+    zone3(id: ID @eq):Zone3 @find
+    hydraulicz3s : [Hydraulicz3] @all
+    hydraulicz3(id: ID @eq) : Hydraulicz3 @find
+    archoses : [Archose] @all
+    archose(id: ID @eq) : Archose @find
+    pipeboomstickclamps : [Pipeboomstickclamp] @all
+    pipeboomstickclamp(id: ID @eq) : Pipeboomstickclamp @find
+    archoseuppers : [Archoseupper] @all
+    archoseupper(id: ID @eq) : Archoseupper @find
+    relateds : [Related] @all
+    related(id: ID @eq) : Related @find
+    airconditionings : [Airconditioning] @all
+    airconditioning(id: ID @eq) : Airconditioning @find
+    cabins : [Cabin] @all
+    cabin(id: ID @eq) : Cabin @find
+}
+extend type Mutation {
+    createZone3(
+        pisheet_id:Int! @rules(apply:["required"])
+    ):Zone3 @create
+}
+type Zone3 {
+    hydraulicz3s : [Hydraulicz3] @hasMany
+    archoses : [Archose] @hasMany
+    pipeboomstickclamps : [Pipeboomstickclamp] @hasMany
+    archoseuppers : [Archoseupper] @hasMany
+    relateds : [Related] @hasMany
+    airconditionings : [Airconditioning] @hasMany
+    cabins : [Cabin] @hasMany
+    pisheet: Pisheet @belongsTo
+}
+type Hydraulicz3 {
+    id: ID!
+    block_srv_acv_a_b:String
+    block_srv_acv_c_d:String
+    block_srv_acv_e_f:String
+    block_srv_acv_g_h:String
+    block_srv_acv_j_k:String
+    block_srv_acv_l_m:String
+    block_srv_acv_n_o:String
+    zone3: Zone3 @belongsTo
+}
+type Archose {
+    id: ID!
+    hose_a:String
+    hose_b:String
+    hose_c:String
+    hose_d:String
+    hose_e:String
+    hose_f:String
+    hose_g:String
+    hose_h:String
+    hose_j:String
+    hose_k:String
+    hose_l:String
+    hose_m:String
+    hose_n:String
+    hose_o:String
+    zone3: Zone3 @belongsTo
+}
+type Pipeboomstickclamp {
+    id: ID!
+    pipe_to_bucket_lh:String
+    pipe_to_bucket_rh:String
+    pipe_to_boom_lh:String
+    pipe_to_boom_rh:String
+    pin_busing_rhlh_b:String
+    injector_grease_lb:String
+    slip_ring:String
+    zone3: Zone3 @belongsTo
+}
+type Archoseupper {
+    id: ID!
+    hose_piping_tb_lhb:String
+    hose_piping_tb_rhb:String
+    hose_piping_tb_lhr:String
+    hose_piping_tb_rhr:String
+    hose_piping_tc_lh:String
+    hose_piping_tc_rh:String
+    zone3: Zone3 @belongsTo
+}
+type Related {
+    id: ID!
+    return_filter:String
+    internal_leak_filter:String
+    breather_hydraulic_tank:String
+    lamp:String
+    mirror_lh:String
+    mirror_rh:String
+    hand_rail:String
+    camera:String
+    zone3: Zone3 @belongsTo
+}
+type Airconditioning {
+    id: ID!
+    operator_opinion:String
+    fan_condensor:String
+    condensor:String
+    hose_suction_adc:String
+    electrical_ac_c:String
+    zone3: Zone3 @belongsTo
+}
+type Cabin {
+    id: ID!
+    gaude_a_switch:String
+    horn:String
+    monitor_panel:String
+    lamp_cabin:String
+    joystick:String
+    pedal_travel:String
+    pedal_bullclamp:String
+    radio_tape_arc:String
+    rotary_lamp:String
+    worklamp:String
+    wipper:String
+    door:String
+    shockabsorber:String
+    emergency_ladder:String
+    pilot_cut_ol:String
+    operator_seat_asb:String
+    fire_suppression_unit:String
+    monitor_camera:String
+    apar:String
+    antenna_orbcom:String
+    antenna_radio:String
+    zone3: Zone3 @belongsTo
+}

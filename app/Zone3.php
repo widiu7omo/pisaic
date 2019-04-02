@@ -9,7 +9,7 @@ class Zone3 extends Model
     //
     protected $guarded = [];
     public $timestamps = false;
-    
+
     public function pisheet(){
         return $this->belongsTo(Pisheet::class);
     }
@@ -19,8 +19,8 @@ class Zone3 extends Model
     public function archoses(){
         return $this->hasMany(Archose::class);
     }
-    public function pipestickclamps(){
-        return $this->hasMany(Pipestickclamp::class);
+    public function pipeboomstickclamps(){
+        return $this->hasMany(Pipeboomstickclamp::class);
     }
     public function archoseuppers(){
         return $this->hasMany(Archoseupper::class);

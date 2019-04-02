@@ -1,0 +1,22 @@
+extend type Query {
+    sheetdailychecks: [Sheetdailycheck] @all
+    sheetdailycheck(id:ID @eq): Sheetdailycheck @find
+}
+# extend type Mutation {
+
+# }
+
+type Sheetdailycheck {
+    id: ID!
+    boom_cylinder_l:String
+    boom_cylinder_r:String
+    stick_cylinder_l:String
+    stick_cylinder_r:String
+    bucket_cylinder_l:String
+    bucket_cylinder_r:String
+    bulkclamp_cylinder_l:String
+    bulkclamp_cylinder_r:String
+    hydraulic_tank:String
+    control_value:String
+    cylinderdailychecksheet_id:Int!
+}

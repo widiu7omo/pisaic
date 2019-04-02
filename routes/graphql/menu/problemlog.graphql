@@ -1,0 +1,25 @@
+extend type Query {
+    problemlogs: [Problemlog] @all
+    problemlog(id: ID @eq):Problemlog @find
+}
+# extend type Mutation {
+
+# }
+
+type Problemlog {
+    id: ID!
+    daydate:String
+    lokasi:String
+    jobtype:String
+    wo_no:String
+    sv_or_ml:String
+    problem:String
+    dampak:String
+    start_time:String
+    end_time:String
+    resp:String
+    pelapor:String
+    langkah_sementara:String
+    langkah_permanen:String
+    unit: Unit @belongsTo
+}

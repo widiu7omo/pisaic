@@ -1,0 +1,42 @@
+extend type Mutation {
+
+    #Inspect Camera
+    createInspectCamera(
+        pemeriksa: String! @rules(apply:["required"])
+        tanggal_pemeriksaan: String! @rules (apply:["required"])
+        nama_komponen: String! @rules(apply:["required"])
+        foto:String
+        ttd_pemeriksa:String
+        logunit_id:Int! @rules(apply:["required"])
+        unit_id:Int! @rules(apply:["required"])
+    ): InspectCamera @create
+    updateInpectCamera(
+        id:ID! @rules(apply:["required"])
+        pemeriksa: String! @rules(apply:["required"])
+        tanggal_pemeriksaan: String! @rules (apply:["required"])
+        nama_komponen: String! @rules(apply:["required"])
+        foto:String
+        ttd_pemeriksa:String
+        logunit_id:Int! @rules(apply:["required"])
+        unit_id:Int! @rules(apply:["required"])
+    ): InspectCamera @update
+    deleteInspectCamera(
+        id:ID! @rules(apply:["required"])
+    ): InspectCamera @delete
+
+}
+
+extend type Query {
+    inspectcameras: [InspectCamera] @all
+    inspectcamera(id: ID @eq): InspectCamera @find
+}
+
+type InspectCamera {
+    id: ID!
+    pemeriksa: String!
+    tanggal_pemeriksaan: String
+    nama_komponen: String
+    foto: String
+    ttd_pemeriksa: String
+    unit: Unit @belongsTo
+}

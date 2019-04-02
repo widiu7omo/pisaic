@@ -1,0 +1,56 @@
+extend type Query {
+    workorders: [Workorder] @all
+    workorder(id: ID @eq): Workorder @find
+}
+
+extend type Mutation {
+    createWorkorder(
+        date: String
+        wo_no: String @rules(apply:["required"])
+        revisi_sr:String
+        po_cus:String
+        product_name:String @rules(apply:["required"])
+        model_unit:String
+        model_engine:String
+        estimasi_job:String
+        catatan:String
+        ttd_sdh:String
+        sdh_name:String
+        pisheet_id:Int
+    ): Workorder @create
+    updateWorkorder(
+        id:ID! @rules(apply:["required"])
+        date: String
+        wo_no: String
+        revisi_sr:String
+        po_cus:String
+        product_name:String
+        model_unit:String
+        model_engine:String
+        estimasi_job:String
+        catatan:String
+        ttd_sdh:String
+        sdh_name:String
+        pisheet_id:Int
+    ): Workorder @update
+    deleteWorkorder(
+        id:ID! @rules(apply:["required"])
+    ): Workorder @delete
+
+}
+
+type Workorder {
+    id: ID!
+    date: String
+    wo_no: String
+    revisi_sr:String
+    po_cus:String
+    product_name:String
+    model_unit:String
+    model_engine:String
+    estimasi_job:String
+    catatan:String
+    ttd_sdh:String
+    sdh_name:String
+    pisheet_id:Int!
+}

@@ -1,0 +1,24 @@
+extend type Query {
+    dataunitdailychecks:[Dataunitdailycheck] @all
+    dataunitdailycheck(id:ID @eq):Dataunitdailycheck @find
+}
+# extend type Mutation {
+
+# }
+
+type Dataunitdailycheck {
+    id: ID!
+    checking_date:String
+    unit_model:String
+    branch_site:String
+    end_customer:String
+    hours_meter:String
+    no_form:String
+    division:String
+    revition:String
+    approve_by:String
+    ttd_approver:String
+    created_by:String
+    ttd_creator:String
+    cylinderdailychecksheet_id:Int!
+}
