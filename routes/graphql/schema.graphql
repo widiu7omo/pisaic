@@ -76,7 +76,7 @@ type Pisheet {
     unit_id: Int!
     masterlog_id: Int!
     unit:Unit @belongsTo
-    masterlogs: [Masterlog] @hasMany
+    masterlog: Masterlog @belongsTo
     workorders:[Workorder] @hasMany
     dataunits:[Dataunit] @hasMany
     unit: Unit @belongsTo
