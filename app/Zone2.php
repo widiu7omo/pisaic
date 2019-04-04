@@ -14,31 +14,31 @@ class Zone2 extends Model
         return $this->belongsTo(Pisheet::class);
     }
     public function maindrivemotors(){
-        return $this->belongsTo(Maindrivemotor::class);
+        return $this->hasMany(Maindrivemotor::class);
     }
     public function pdgpumps(){
-        return $this->belongsTo(Pdgpump::class);
+        return $this->hasMany(Pdgpump::class);
     }
     public function swings(){
-        return $this->belongsTo(Swing::class);
+        return $this->hasMany(Swing::class);
     }
     public function oilcenters(){
-        return $this->belongsTo(Oilcenter::class);
+        return $this->hasMany(Oilcenter::class);
     }
     public function clss(){
-        return $this->belongsTo(Cls::class);
+        return $this->hasMany(Cls::class);
     }
     public function slss(){
-        return $this->belongsTo(Sls::class);
+        return $this->hasMany(Sls::class);
     }
     public function hydraulics(){
-        return $this->belongsTo(Hydraulic::class);
+        return $this->hasMany(Hydraulic::class);
     }
     public function electrics(){
-        return $this->belongsTo(Electric::class);
+        return $this->hasMany(Electric::class);
     }
     public function additionalfluids(){
-        return $this->belongsTo(Additionalfluid::class);
+        return $this->hasMany(Additionalfluid::class);
     }
 
 }
